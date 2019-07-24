@@ -1,17 +1,19 @@
-import memory from './memory';
+const memory = require('./memory');
+
+
 
 class Array {
-  constructor(){
+  constructor() {
     this.length = 0;
-    this.capacity = 0; //<=
+    this.capacity = 1; 
     this.ptr = memory.allocate(this.length);
   }
 
   push(value) {
-    if(this.length >= this.capacity) {
+    if (this.length >= this.capacity) {
       this._resize(this.length + 1 * Array.SIZE_RATIO);
     } //<=
-    
+
     memory.set(this.ptr + this.length, value);
     this.length++;
   }
@@ -28,38 +30,55 @@ class Array {
   }
 
   get(index) {
-    if (index <0 || index >= this.length){
-      throw new Error('Index doesn\'t exist');
+    if (index < 0 || index >= this.length) {
+      throw new Error("Index doesn't exist");
     }
-    return memory.get(this.ptr +index);
+    return memory.get(this.ptr + index);
   }
   pop() {
-    if(this.length === 0) {
+    if (this.length === 0) {
       throw new Error('Index Error');
     }
     const value = memory.get(this.ptr + this.length - 1);
     this.length--;
     return value;
   }
-  insert(index, value){
-    if (index <0 || index >= this.length){
+  insert(index, value) {
+    if (index < 0 || index >= this.length) {
       throw new Error('Index Error');
     }
     if (this.length >= this.capacity) {
-      this._resize((this.length+1) * Array.SIZE_RATIO);
+      this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
 
-    memory.copy(this.ptr+index+1, this.ptr+index, this.length - index);
-    memory.set(this.ptr+index, value);
+    memory.copy(this.ptr + index + 1, this.ptr + index, this.length - index);
+    memory.set(this.ptr + index, value);
     this.length++;
   }
 
-  remove(index){
-    if (index <0 || index >= this.length){
+  remove(index) {
+    if (index < 0 || index >= this.length) {
       throw new Error('Index Error');
     }
-    memory.copy(this.ptr + index, this.ptr+index+1, this.length -index - 1);
+    memory.copy(
+      this.ptr + index,
+      this.ptr + index + 1,
+      this.length - index - 1
+    );
     this.length--;
   }
 }
-Array.SIZE_RATIO = 3; //<=
+
+function main() {
+  Array.SIZE_RATIO = 3;
+
+  // Create an instance of the Array class
+  let arr = new Array();
+
+  // Add an item to the array
+  arr.push(3);
+
+  console.log(arr);
+}
+
+main();
