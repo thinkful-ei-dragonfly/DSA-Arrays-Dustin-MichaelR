@@ -13,7 +13,7 @@ class Array {
 
   push(value) {
     if (this.length >= this.capacity) {
-      this._resize(this.length + 1 * Array.SIZE_RATIO);
+      this._resize((this.length + 1) * Array.SIZE_RATIO);
     } //<=
 
     memory.set(this.ptr + this.length, value);
@@ -89,14 +89,14 @@ function main() {
   arr.pop();
   arr.pop();
 
-  console.log(arr.get(0));
+  // console.log(arr.get(0));
 
-  arr.pop();
-  arr.pop();
-  arr.pop();
-  arr.push('tauhida');
+  // arr.pop();
+  // arr.pop();
+  // arr.pop();
+  // arr.push('tauhida');
 
-  console.log(arr.get(0));
+  // console.log(arr.get(0));
 
 
   console.log(arr);
@@ -105,6 +105,6 @@ function main() {
 main();
 
 //#2 length = 1 capacity = 3 addr =0
-//#2-2 length=6 capacity=6 addr=3
-//#3 Array { length: 3, capacity: 6, ptr: 3 }
+//#2-2 length=6 capacity=12 addr=3
+//#3 length= 3, capacity= 12, ptr= 3 }
 //#4 We get NaN because the float64Array creates an array with a Float type. resize is to give us more space to add items.
