@@ -1,11 +1,11 @@
-const memory = require('./memory');
+const mem = require('./memory');
 
-
+const memory = new mem();
 
 class Array {
   constructor() {
     this.length = 0;
-    this.capacity = 1; 
+    this.capacity = 0; 
     this.ptr = memory.allocate(this.length);
   }
 
@@ -77,8 +77,32 @@ function main() {
 
   // Add an item to the array
   arr.push(3);
+  arr.push(5);
+  arr.push(15);
+  arr.push(19);
+  arr.push(45);
+  arr.push(10);
+
+  arr.pop();
+  arr.pop();
+  arr.pop();
+
+  console.log(arr.get(0));
+
+  arr.pop();
+  arr.pop();
+  arr.pop();
+  arr.push('tauhida');
+
+  console.log(arr.get(0));
+
 
   console.log(arr);
 }
 
 main();
+
+//#2 length = 1 capacity = 3 addr =0
+//#2-2 length=6 capacity=6 addr=3
+//#3 Array { length: 3, capacity: 6, ptr: 3 }
+//#4 We get NaN because the float64Array creates an array with a Float type. resize is to give us more space to add items.
